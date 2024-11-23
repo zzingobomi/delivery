@@ -10,7 +10,7 @@ import { Payment, PaymentSchema } from './payment.entity';
 
 export enum OrderStatus {
   pending = 'Pending',
-  paymentCanceled = 'PaymentCanceled',
+  paymentCancelled = 'PaymentCancelled',
   paymentFailed = 'PaymentFailed',
   paymentProcessed = 'PaymentProcessed',
   deliveryStarted = 'DeliveryStarted',
