@@ -5,7 +5,7 @@ import { Prop, Schema, SchemaFactory } from '@nestjs/mongoose';
 })
 export class Product {
   @Prop({ required: true })
-  protectId: string;
+  productId: string;
 
   @Prop({ required: true })
   name: string;
