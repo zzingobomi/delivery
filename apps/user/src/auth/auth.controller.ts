@@ -14,60 +14,28 @@ import { MessagePattern, Payload } from '@nestjs/microservices';
 import { ParseBearerTokenDto } from './dto/parse-bearer-token.dto';
 import { RpcInterceptor } from '@app/common';
 import { LoginDto } from './dto/login.dto';
+import { UserMicroservice } from '@app/common';
 
 @Controller('auth')
-export class AuthController {
+@UserMicroservice.AuthServiceControllerMethods()
+export class AuthController implements UserMicroservice.AuthServiceController {
   constructor(private readonly authService: AuthService) {}
 
-  // @Post('register')
-  // @UsePipes(ValidationPipe)
-  // registerUser(
-  //   @Authorization() token: string,
-  //   @Body() registerDto: RegisterDto,
-  // ) {
-  //   if (token === null) {
-  //     throw new UnauthorizedException('토큰을 입력해주세요!');
-  //   }
-
-  //   return this.authService.register(token, registerDto);
-  // }
-
-  // @Post('login')
-  // @UsePipes(ValidationPipe)
-  // loginUser(@Authorization() token: string) {
-  //   if (token === null) {
-  //     throw new UnauthorizedException('토큰을 입력해주세요!');
-  //   }
-
-  //   return this.authService.login(token);
-  // }
-
-  @MessagePattern({
-    cmd: 'parse_bearer_token',
-  })
-  @UsePipes(ValidationPipe)
-  @UseInterceptors(RpcInterceptor)
-  parseBearerToken(@Payload() payload: ParseBearerTokenDto) {
-    return this.authService.parseBearerToken(payload.token, false);
+  parseBearerToken(request: UserMicroservice.ParseBearerTokenRequest) {
+    return this.authService.parseBearerToken(request.token, false);
   }
 
-  @MessagePattern({
-    cmd: 'register',
-  })
-  registerUser(@Payload() registerDto: RegisterDto) {
-    const { token } = registerDto;
+  registerUser(request: UserMicroservice.RegisterUserRequest) {
+    const { token } = request;
 
     if (token === null) {
       throw new UnauthorizedException('토큰을 입력해주세요!');
     }
 
-    return this.authService.register(token, registerDto);
+    return this.authService.register(token, request);
   }
 
-  @MessagePattern({
-    cmd: 'login',
-  })
-  loginUser(@Payload() loginDto: LoginDto) {
+  loginUser(loginDto: UserMicroservice.LoginUserRequest) {
     const { token } = loginDto;
 
     if (token === null) {

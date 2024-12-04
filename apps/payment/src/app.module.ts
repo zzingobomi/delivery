@@ -3,8 +3,9 @@ import { PaymentModule } from './payment/payment.module';
 import { ConfigModule, ConfigService } from '@nestjs/config';
 import { TypeOrmModule } from '@nestjs/typeorm';
 import { ClientsModule, Transport } from '@nestjs/microservices';
-import { NOTIFICATION_SERVICE } from '@app/common';
+import { NOTIFICATION_SERVICE, NotificationMicroservice } from '@app/common';
 import * as Joi from 'joi';
+import { join } from 'path';
 
 @Module({
   imports: [
@@ -31,13 +32,11 @@ import * as Joi from 'joi';
         {
           name: NOTIFICATION_SERVICE,
           useFactory: (configService: ConfigService) => ({
-            transport: Transport.RMQ,
+            transport: Transport.GRPC,
             options: {
-              urls: ['amqp://rabbitmq:5672'],
-              queue: 'notification_queue',
-              queueOptions: {
-                durable: false,
-              },
+              package: NotificationMicroservice.protobufPackage,
+              protoPath: join(process.cwd(), 'proto/notification.proto'),
+              url: configService.getOrThrow('NOTIFICATION_GRPC_URL'),
             },
           }),
           inject: [ConfigService],

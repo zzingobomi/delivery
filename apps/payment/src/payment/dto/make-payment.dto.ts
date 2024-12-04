@@ -35,5 +35,5 @@ export class MakePaymentDto {
 
   @IsString()
   @IsNotEmpty()
-  userEamil: string;
+  userEmail: string;
 }

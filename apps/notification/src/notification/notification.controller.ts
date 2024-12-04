@@ -7,19 +7,27 @@ import {
 } from '@nestjs/common';
 import { NotificationService } from './notification.service';
 import { MessagePattern, Payload } from '@nestjs/microservices';
-import { RpcInterceptor } from '@app/common';
+import { NotificationMicroservice, RpcInterceptor } from '@app/common';
 import { SendPaymentNotificationDto } from './dto/send-payment-notification.dto';
 
 @Controller()
-export class NotificationController {
+@NotificationMicroservice.NotificationServiceControllerMethods()
+export class NotificationController
+  implements NotificationMicroservice.NotificationServiceController
+{
   constructor(private readonly notificationService: NotificationService) {}
 
-  @MessagePattern({ cmd: 'send_payment_notification' })
-  @UsePipes(ValidationPipe)
-  @UseInterceptors(RpcInterceptor)
-  async sendPaymentNotification(
-    @Payload() payload: SendPaymentNotificationDto,
-  ) {
-    return this.notificationService.sendPaymentNotification(payload);
+  async sendPaymentNotification(request: SendPaymentNotificationDto) {
+    return await this.notificationService.sendPaymentNotification(request);
+
+    // TODO: 강의에서는 JSON 으로 변경해야 한다고 나와있는데 테스트 해볼것!
+    // const resp = (
+    //   await this.notificationService.sendPaymentNotification(request)
+    // ).toJSON();
+
+    // return {
+    //   ...resp,
+    //   status: resp.status.toString(),
+    // };
   }
 }
