@@ -1,6 +1,7 @@
 import { Inject, Injectable, OnModuleInit } from '@nestjs/common';
 import { CreateOrderDto } from './dto/create-order.dto';
 import {
+  constructMetadata,
   ORDER_SERVICE,
   OrderMicroservice,
   UserMeta,
@@ -27,10 +28,13 @@ export class OrderService implements OnModuleInit {
 
   createOrder(createOrderDto: CreateOrderDto, userPayload: UserPayloadDto) {
     return lastValueFrom(
-      this.orderService.createOrder({
-        ...createOrderDto,
-        meta: { user: userPayload },
-      }),
+      this.orderService.createOrder(
+        {
+          ...createOrderDto,
+          meta: { user: userPayload },
+        },
+        constructMetadata(OrderService.name, 'createOrder'),
+      ),
     );
   }
 }

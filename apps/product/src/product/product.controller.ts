@@ -8,10 +8,15 @@ import {
 import { ProductService } from './product.service';
 import { MessagePattern, Payload } from '@nestjs/microservices';
 import { GetProductsInfoDto } from './dto/get-products-info.dto';
-import { ProductMicroservice, RpcInterceptor } from '@app/common';
+import {
+  GrpcInterceptor,
+  ProductMicroservice,
+  RpcInterceptor,
+} from '@app/common';
 
 @Controller('product')
 @ProductMicroservice.ProductServiceControllerMethods()
+@UseInterceptors(GrpcInterceptor)
 export class ProductController
   implements ProductMicroservice.ProductServiceController
 {

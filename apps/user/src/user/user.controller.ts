@@ -7,10 +7,11 @@ import {
 import { UserService } from './user.service';
 import { MessagePattern, Payload } from '@nestjs/microservices';
 import { GetUserInfoDto } from './dto/get-user-info.dto';
-import { RpcInterceptor, UserMicroservice } from '@app/common';
+import { GrpcInterceptor, RpcInterceptor, UserMicroservice } from '@app/common';
 
 @Controller()
 @UserMicroservice.UserServiceControllerMethods()
+@UseInterceptors(GrpcInterceptor)
 export class UserController implements UserMicroservice.UserServiceController {
   constructor(private readonly userService: UserService) {}
 
