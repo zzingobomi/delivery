@@ -1,0 +1,34 @@
+version: '3.1'
+
+services:
+  gateway:
+    image: zzingo5/fc-nestjs-gateway
+    env_file:
+      - ./apps/gateway/.env.prod
+    ports:
+      - '3000:3000'
+
+  user:
+    image: zzingo5/fc-nestjs-user
+    env_file:
+      - ./apps/user/.env.prod
+
+  product:
+    image: zzingo5/fc-nestjs-product
+    env_file:
+      - ./apps/product/.env.prod
+
+  order:
+    image: zzingo5/fc-nestjs-order
+    env_file:
+      - ./apps/order/.env.prod
+
+  payment:
+    image: zzingo5/fc-nestjs-payment
+    env_file:
+      - ./apps/payment/.env.prod
+
+  notification:
+    image: zzingo5/fc-nestjs-notification
+    env_file:
+      - ./apps/notification/.env.prod
