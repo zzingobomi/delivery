@@ -1,0 +1,15 @@
+apiVersion: networking.istio.io/v1beta1
+kind: Gateway
+metadata:
+  name: delivery-gateway
+  namespace: default
+spec:
+  selector:
+    istio: ingressgateway # istio ingress gateway가 이 설정을 핸들링 할 수 있도록 함
+  servers:
+    - port:
+        number: 80
+        name: http
+        protocol: HTTP
+      hosts:
+        - "*"
