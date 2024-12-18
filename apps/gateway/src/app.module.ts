@@ -17,6 +17,7 @@ import * as Joi from 'joi';
 import { BearerTokenMiddleware } from './auth/middleware/bearer-token.middleware';
 import { join } from 'path';
 import { HealthModule } from './health/health.module';
+import { VersionModule } from './version/version.module';
 
 @Module({
   imports: [
@@ -85,6 +86,7 @@ import { HealthModule } from './health/health.module';
     ProductModule,
     AuthModule,
     HealthModule,
+    VersionModule,
   ],
 })
 export class AppModule implements NestModule {
