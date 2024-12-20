@@ -27,9 +27,9 @@ jobs:
 
       - name: Build and Push Docker Image
         run: |
-          docker buildx build --platform linux/amd64,linux/arm64 -t zzingo5/fc-nestjs-gateway:latest -t zzingo5/fc-nestjs-gateway:${{ github.sha }} -t zzingo5/fc-nestjs-gateway:$TIMESTAMP -f ./apps/gateway/Dockerfile --target production --push .
-          docker buildx build --platform linux/amd64,linux/arm64 -t zzingo5/fc-nestjs-notification:latest -t zzingo5/fc-nestjs-notification:${{ github.sha }} -t zzingo5/fc-nestjs-notification:$TIMESTAMP -f ./apps/notification/Dockerfile --target production --push .
-          docker buildx build --platform linux/amd64,linux/arm64 -t zzingo5/fc-nestjs-order:latest -t zzingo5/fc-nestjs-order:${{ github.sha }} -t zzingo5/fc-nestjs-order:$TIMESTAMP -f ./apps/order/Dockerfile --target production --push .
-          docker buildx build --platform linux/amd64,linux/arm64 -t zzingo5/fc-nestjs-payment:latest -t zzingo5/fc-nestjs-payment:${{ github.sha }} -t zzingo5/fc-nestjs-payment:$TIMESTAMP -f ./apps/payment/Dockerfile --target production --push .
-          docker buildx build --platform linux/amd64,linux/arm64 -t zzingo5/fc-nestjs-product:latest -t zzingo5/fc-nestjs-product:${{ github.sha }} -t zzingo5/fc-nestjs-product:$TIMESTAMP -f ./apps/product/Dockerfile --target production --push .
-          docker buildx build --platform linux/amd64,linux/arm64 -t zzingo5/fc-nestjs-user:latest -t zzingo5/fc-nestjs-user:${{ github.sha }} -t zzingo5/fc-nestjs-user:$TIMESTAMP -f ./apps/user/Dockerfile --target production --push .
+          docker buildx build --platform linux/amd64,linux/arm64 -t zzingo5/fc-nestjs-gateway:$TIMESTAMP -f ./apps/gateway/Dockerfile --target production --push .
+          docker buildx build --platform linux/amd64,linux/arm64 -t zzingo5/fc-nestjs-notification:$TIMESTAMP -f ./apps/notification/Dockerfile --target production --push .
+          docker buildx build --platform linux/amd64,linux/arm64 -t zzingo5/fc-nestjs-order:$TIMESTAMP -f ./apps/order/Dockerfile --target production --push .
+          docker buildx build --platform linux/amd64,linux/arm64 -t zzingo5/fc-nestjs-payment:$TIMESTAMP -f ./apps/payment/Dockerfile --target production --push .
+          docker buildx build --platform linux/amd64,linux/arm64 -t zzingo5/fc-nestjs-product:$TIMESTAMP -f ./apps/product/Dockerfile --target production --push .
+          docker buildx build --platform linux/amd64,linux/arm64 -t zzingo5/fc-nestjs-user:$TIMESTAMP -f ./apps/user/Dockerfile --target production --push .
