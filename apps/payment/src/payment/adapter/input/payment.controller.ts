@@ -4,16 +4,15 @@ import {
   UsePipes,
   ValidationPipe,
 } from '@nestjs/common';
-import { PaymentService } from './payment.service';
 import { MessagePattern, Payload } from '@nestjs/microservices';
-import { MakePaymentDto } from './dto/make-payment.dto';
 import {
   GrpcInterceptor,
   PaymentMicroservice,
   RpcInterceptor,
 } from '@app/common';
-import { PaymentMethod } from './entity/payment.entity';
 import { Metadata } from '@grpc/grpc-js';
+import { PaymentMethod } from '../../domain/payment.domain';
+import { PaymentService } from '../../application/payment.service';
 
 @Controller()
 @PaymentMicroservice.PaymentServiceControllerMethods()
@@ -27,12 +26,9 @@ export class PaymentController
     request: PaymentMicroservice.MakePaymentRequest,
     metadata: Metadata,
   ) {
-    return this.paymentService.makePayment(
-      {
-        ...request,
-        paymentMethod: request.paymentMethod as PaymentMethod,
-      },
-      metadata,
-    );
+    return this.paymentService.makePayment({
+      ...request,
+      paymentMethod: request.paymentMethod as PaymentMethod,
+    });
   }
 }
