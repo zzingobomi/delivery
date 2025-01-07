@@ -6,17 +6,14 @@ import {
   UsePipes,
   ValidationPipe,
 } from '@nestjs/common';
-import { OrderService } from '../../order.service';
-import { CreateOrderDto } from '../../dto/create-order.dto';
 import { EventPattern, MessagePattern, Payload } from '@nestjs/microservices';
 import {
   GrpcInterceptor,
   OrderMicroservice,
   RpcInterceptor,
 } from '@app/common';
-import { DeliveryStartedDto } from '../../dto/delivery-started.dto';
-import { Order, OrderStatus } from '../../entity/order.entity';
-import { PaymentMethod } from '../../entity/payment.entity';
+import { OrderDocument, OrderStatus } from '../mongoose/entity/order.entity';
+import { PaymentMethod } from '../mongoose/entity/payment.entity';
 import { Metadata } from '@grpc/grpc-js';
 import { CreateOrderUseCase } from '../../usecase/create-order.usecase';
 import { StartDeliveryUseCase } from '../../usecase/start-delivery.usecase';

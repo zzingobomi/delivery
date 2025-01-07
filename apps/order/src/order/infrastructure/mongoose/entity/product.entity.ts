@@ -3,15 +3,15 @@ import { Prop, Schema, SchemaFactory } from '@nestjs/mongoose';
 @Schema({
   _id: false,
 })
-export class Customer {
+export class ProductDocument {
   @Prop({ required: true })
-  userId: string;
-
-  @Prop({ required: true })
-  email: string;
+  productId: string;
 
   @Prop({ required: true })
   name: string;
+
+  @Prop({ required: true })
+  price: number;
 }
 
-export const CustomerSchema = SchemaFactory.createForClass(Customer);
+export const ProductSchema = SchemaFactory.createForClass(ProductDocument);
